@@ -13,7 +13,6 @@
   "scripts": {
     "build": "tsup",
     "test": "vitest",
-    "pretest": "npm run lint",
     "benchmark": "vitest bench",
     "lint": "eslint",
     "lint:fix": "eslint --fix"
