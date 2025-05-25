@@ -3,6 +3,7 @@ import { defineConfig } from 'tsup'
 const common = {
     dts: true,
     target: ['node18', 'es2020'],
+    minify: true,
     clean: true,
     sourcemap: true,
 }
