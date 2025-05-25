@@ -6,7 +6,7 @@
 .npmignore
 .travis.yml
 CHANGELOG.md
-CONTRIBUTORS
+CONTRIBUTORS.md
 /benchmark/
 bower.json
 /demo/
