@@ -2,6 +2,15 @@ import tsEslint from 'typescript-eslint'
 import eslint from '@eslint/js'
 
 export default [
+    {
+        ignores: [
+            '.idea/',
+            '.github/',
+            'dist/',
+            'node_modules/',
+            'test/',
+        ],
+    },
     eslint.configs.recommended,
     ...tsEslint.configs.recommended,
     {
