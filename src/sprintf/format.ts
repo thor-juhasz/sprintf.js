@@ -1,4 +1,3 @@
-// import { inspect } from 'node:util'
 import { sprintf } from '@/index'
 import { ArgList, ParseTree, FormatPlaceholder } from '@/sprintf/types'
 import { regexes, truncate } from '@/sprintf/utils'
@@ -82,7 +81,6 @@ function resolveSlots(parseTree: ParseTree) {
         // Arguments are 1-indexed, placeholders are 0-indexed.
         placeholder.resolved = slot - 1
     }
-    // console.log(inspect({ parseTree, used, taken, namedSlot }, { depth: null, colors: true, breakLength: 220 }))
 }
 
 /**
@@ -92,6 +90,10 @@ export default function format(parseTree: ParseTree, argv: ArgList): string {
     resolveSlots(parseTree)
 
     let output = ''
+
+    if (parseTree.filter(node => typeof node !== 'string').length > 0 && argv.length === 0) {
+        throw new TypeError(sprintf('[sprintf] expecting at least 1 argument, got %d', argv.length))
+    }
 
     for (const node of parseTree) {
         if (typeof node === 'string') {
@@ -104,8 +106,9 @@ export default function format(parseTree: ParseTree, argv: ArgList): string {
 
         if (placeholder.paramNameKeys) { // keyword argument
             for (const key of placeholder.paramNameKeys) {
-                if (arg === null) {
-                    throw new Error(sprintf('[sprintf] Cannot access property "%s" of undefined.', key))
+                if (!arg) {
+                    const which = arg === null ? 'null' : 'undefined'
+                    throw new Error(sprintf('[sprintf] Cannot access property "%s" of "%s"', key, which))
                 }
 
                 arg = arg[key]
@@ -118,6 +121,11 @@ export default function format(parseTree: ParseTree, argv: ArgList): string {
 
         if (regexes.numericArg.test(placeholder.type) && (typeof arg !== 'number' && isNaN(arg))) {
             throw new TypeError(sprintf('[sprintf] expecting number but found %T', arg))
+        }
+
+        let isPositive = true
+        if (regexes.number.test(placeholder.type)) {
+            isPositive = arg >= 0
         }
 
         switch (placeholder.type) {
@@ -179,8 +187,6 @@ export default function format(parseTree: ParseTree, argv: ArgList): string {
             let sign = ''
 
             if (regexes.number.test(placeholder.type)) {
-                const isPositive = arg >= 0
-
                 if (!isPositive || placeholder.sign) {
                     sign = isPositive ? '+' : '-'
                     arg = arg.toString().replace(regexes.sign, '')
@@ -193,8 +199,8 @@ export default function format(parseTree: ParseTree, argv: ArgList): string {
             let pad = ''
 
             if (placeholder.width) {
-                const padLength = placeholder.width - (sign + arg).length
-                pad = padLength > 0 ? padCharacter.repeat(padLength) : ''
+                const padLength = Math.max(0, placeholder.width - (sign + arg).length)
+                pad = padCharacter.repeat(padLength)
             }
 
             output += placeholder.leftAlign ? sign + arg + pad : (padCharacter === '0' ? sign + pad + arg : pad + sign + arg)

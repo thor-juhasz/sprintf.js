@@ -1,7 +1,7 @@
 import { FormatPlaceholder, ParseTree, RawMatch } from '@/sprintf/types'
 import { hasRawGroups, regexes } from '@/sprintf/utils'
 
-const sprintfCache: Record<string, ParseTree> = {}
+const sprintfCache: Map<string, ParseTree> = new Map()
 
 export function parseNamedArgs(groups: RawMatch): string[] {
     const fieldList: string[] = []
@@ -31,8 +31,8 @@ export function parseNamedArgs(groups: RawMatch): string[] {
  * Parse a format string into a tree of placeholders and literal strings
  */
 export default function parse(format: string): ParseTree {
-    if (sprintfCache[format]) {
-        return sprintfCache[format]
+    if (sprintfCache.has(format)) {
+        return sprintfCache.get(format)!
     }
 
     const parseTree: ParseTree = []
@@ -50,7 +50,7 @@ export default function parse(format: string): ParseTree {
             const groups = match.groups
 
             const formatPlaceholder: FormatPlaceholder = {
-                placeholder: groups.placeholder,
+                placeholder: match[0],
                 paramNumber: groups.paramNumber ? Number(groups.paramNumber) : undefined,
                 sign: !!groups.sign,
                 padChar: groups.padChar,
@@ -72,5 +72,7 @@ export default function parse(format: string): ParseTree {
         _format = _format.substring(match[0].length)
     }
 
-    return sprintfCache[format] = parseTree
+    sprintfCache.set(format, parseTree)
+
+    return parseTree
 }
