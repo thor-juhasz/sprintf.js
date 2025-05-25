@@ -10,7 +10,6 @@ export default defineConfig({
     },
     test: {
         benchmark: {
-            // include: ['./benchmark/**/*.(c|m)ts?(x)']
             reporters: ['default']
         }
     }
