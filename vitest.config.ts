@@ -11,6 +11,15 @@ export default defineConfig({
     test: {
         benchmark: {
             reporters: ['default']
-        }
-    }
+        },
+        coverage: {
+            provider: 'v8',
+            reporter: ['text', 'json', 'html'],
+            include: ['src/**/*.ts'],
+            exclude: ['**/*.d.ts', '**/*.test.ts', '**/*.bench.ts'],
+            thresholds: {
+                100: true,
+            },
+        },
+    },
 })

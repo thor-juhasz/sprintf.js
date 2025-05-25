@@ -14,7 +14,7 @@
     "sourceMap": true,
     "paths": {
       "@/*": ["src/*"],
-      "@/tests/*": ["tests/*"]
+      "@tests/*": ["tests/*"]
     }
   },
   "include": ["src", "benchmark", "tests"]
