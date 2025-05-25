@@ -1,10 +1,21 @@
 import { defineConfig } from 'tsup'
 
-export default defineConfig({
-    entry: ['src/index.ts'],
-    format: ['cjs', 'esm', 'iife'],
+const common = {
     dts: true,
-    target: 'node18',
+    target: ['node18', 'es2020'],
     clean: true,
     sourcemap: true,
-})
+}
+
+export default defineConfig([
+    {
+        entry: ['src/index.ts'],
+        format: ['cjs', 'esm'],
+        ...common,
+    },
+    {
+        entry: ['src/browser.ts'],
+        format: 'iife',
+        ...common,
+    },
+])
