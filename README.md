@@ -1,9 +1,9 @@
 # sprintf-js
 
-[![Build Status][travisci-image]][travisci-url] [![NPM Version][npm-image]][npm-url] [![Dependency Status][dependencies-image]][dependencies-url] [![devDependency Status][dev-dependencies-image]][dev-dependencies-url]
+[![CI Status][github-ci-image]][github-ci-url] [![NPM Version][npm-image]][npm-url] [![Dependency Status][dependencies-image]][dependencies-url] [![devDependency Status][dev-dependencies-image]][dev-dependencies-url]
 
-[travisci-image]: https://travis-ci.org/alexei/sprintf.js.svg?branch=master
-[travisci-url]: https://travis-ci.org/alexei/sprintf.js
+[github-ci-image]: https://github.com/alexei/sprintf.js/actions/workflows/ci.yml/badge.svg
+[github-ci-url]: https://github.com/alexei/sprintf.js/actions/workflows/ci.yml
 
 [npm-image]: https://badge.fury.io/js/sprintf-js.svg
 [npm-url]: https://badge.fury.io/js/sprintf-js
@@ -20,11 +20,33 @@
 
 ## Usage
 
-    var sprintf = require('sprintf-js').sprintf,
-        vsprintf = require('sprintf-js').vsprintf
+### ESM (Recommended)
 
-    sprintf('%2$s %3$s a %1$s', 'cracker', 'Polly', 'wants')
-    vsprintf('The first 4 letters of the english alphabet are: %s, %s, %s and %s', ['a', 'b', 'c', 'd'])
+```js
+import { sprintf, vsprintf } from 'sprintf-js';
+
+sprintf('%2$s %3$s a %1$s', 'cracker', 'Polly', 'wants');
+vsprintf('The first 4 letters of the english alphabet are: %s, %s, %s and %s', ['a', 'b', 'c', 'd']);
+```
+
+### CommonJS
+
+```js
+const { sprintf, vsprintf } = require('sprintf-js');
+
+sprintf('%2$s %3$s a %1$s', 'cracker', 'Polly', 'wants');
+vsprintf('The first 4 letters of the english alphabet are: %s, %s, %s and %s', ['a', 'b', 'c', 'd']);
+```
+
+### Browser
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/sprintf-js@1.1.3/dist/sprintf.min.js"></script>
+<script>
+  sprintfJs.sprintf('%2$s %3$s a %1$s', 'cracker', 'Polly', 'wants');
+  sprintfJs.vsprintf('The first 4 letters of the english alphabet are: %s, %s, %s and %s', ['a', 'b', 'c', 'd']);
+</script>
+```
 
 ## Installation
 
@@ -122,7 +144,7 @@ You can use `sprintf` and `vsprintf` (also aliased as `fmt` and `vfmt` respectiv
 
 ### Node.js
 
-`sprintf-js` runs in all active Node versions (4.x+).
+`sprintf-js` runs in all active Node versions (18.x+).
 
 ### Browser
 
@@ -133,6 +155,18 @@ You can use `sprintf` and `vsprintf` (also aliased as `fmt` and `vfmt` respectiv
  - `Object.create()` (IE < 9)
 
 YMMV
+
+## TypeScript
+
+This library has been rewritten in TypeScript, providing type definitions out of the box. The package can be used in both ESM and CommonJS environments, and is also available for direct browser usage via CDN.
+
+### Build Process
+
+The project uses [tsup](https://github.com/egoist/tsup) for building, which generates:
+
+- CommonJS output (`dist/sprintf.js`)
+- ESM output (`dist/sprintf.mjs`)
+- TypeScript declaration files (`dist/sprintf.d.ts`)
 
 ## License
 
