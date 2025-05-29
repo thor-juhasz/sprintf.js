@@ -5,6 +5,7 @@
 * Rewrite in TypeScript with full argument inference from formatting string
 * Replace travis workflow with a GitHub action workflow
 * Remove dist dir from version control
+* Support named arguments with any other arguments
 * Update all tooling (ESLint, vitest, tsup)
 * Use package.json "files" instead of .npmignore
 * Full test coverage
