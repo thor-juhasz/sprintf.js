@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup'
 import pkg from './package.json'
 
 const common = {
-    dts: true,
+    dts: false,
     target: ['node18', 'es2020'],
     minify: true,
     clean: true,
@@ -15,7 +15,13 @@ const common = {
 export default defineConfig([
     {
         entry: ['src/sprintf.ts'],
-        format: ['cjs', 'esm'],
+        format: 'esm',
+        ...common,
+        dts: true,
+    },
+    {
+        entry: ['src/sprintf.ts'],
+        format: 'cjs',
         ...common,
     },
     {
