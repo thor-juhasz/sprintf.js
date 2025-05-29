@@ -4,9 +4,16 @@
   "description": "JavaScript sprintf implementation",
   "author": "Alexandru Mărășteanu <hello@alexei.ro>",
   "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/sprintf.cjs",
+  "module": "dist/sprintf.js",
+  "types": "dist/sprintf.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/sprintf.js",
+      "require": "./dist/sprintf.cjs",
+      "types": "./dist/sprintf.d.ts"
+    }
+  },
   "files": [
       "dist/"
   ],
