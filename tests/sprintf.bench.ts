@@ -11,7 +11,7 @@ import {
     simplestImplicit,
     simplestNamedExplicit,
     simplestNamedImplicit,
-} from '@/tests/fixtures/cases'
+} from '@tests/fixtures/cases'
 
 function benchEach<Case extends readonly TestCase[]>(
     cases: Case,

@@ -20,9 +20,9 @@ function should_not_throw(format: string, args: unknown[]) {
     expect(() => vsprintf(format, args)).not.toThrow()
 }
 
-describe('sprintfjs cache', () => {
+describe('sprintf.js cache', () => {
     it('should not throw Error (cache consistency)', () => {
-        // redefine object properties to ensure that is not affect to the cache
+        // redefine object properties to ensure it doesn't affect the cache
         sprintf('hasOwnProperty')
         sprintf('constructor')
         should_not_throw('%s', ['caching...'])
@@ -69,14 +69,12 @@ describe('sprintf.js errors', () => {
         const fmt = "%(x.y)s"
         expect(() => {
             sprintf(fmt, {})
-        }).toThrow(/\[sprintf\]/)
+        }).toThrow(/\[sprintf]/)
     })
 
     it('should not throw when accessing properties on the prototype', () => {
-        function C() { }
-        C.prototype = {
-            get x() { return 2 },
-            set y(v) { /*Noop */}
+        class C {
+            get x() { return 2 }
         }
         const c = new C()
         should_not_throw("%(x)s", [c])
