@@ -1,6 +1,9 @@
 # sprintf-js
 
-[![CI Status][github-ci-image]][github-ci-url] [![NPM Version][npm-image]][npm-url] [![Dependency Status][dependencies-image]][dependencies-url] [![devDependency Status][dev-dependencies-image]][dev-dependencies-url]
+[![CI Status][github-ci-image]][github-ci-url]
+[![NPM Version][npm-image]][npm-url]
+[![Dependency Status][dependencies-image]][dependencies-url]
+[![devDependency Status][dev-dependencies-image]][dev-dependencies-url]
 
 [github-ci-image]: https://github.com/alexei/sprintf.js/actions/workflows/ci.yml/badge.svg
 [github-ci-url]: https://github.com/alexei/sprintf.js/actions/workflows/ci.yml
@@ -16,7 +19,7 @@
 
 **sprintf-js** is a complete open source JavaScript `sprintf` implementation for the **browser** and **Node.js**.
 
-**Note: as of v1.1.1 you might need some polyfills for older environments. See [Support](#support) section below.**
+**Note: v2.0.0 drops support for a lot of old browsers and environments. Use v1.x if you need legacy support.**
 
 ## Usage
 
@@ -41,10 +44,10 @@ vsprintf('The first 4 letters of the english alphabet are: %s, %s, %s and %s', [
 ### Browser
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/sprintf-js@1.1.3/dist/sprintf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sprintf-js@2.0.0/dist/sprintf.min.js"></script>
 <script>
-  sprintfJs.sprintf('%2$s %3$s a %1$s', 'cracker', 'Polly', 'wants');
-  sprintfJs.vsprintf('The first 4 letters of the english alphabet are: %s, %s, %s and %s', ['a', 'b', 'c', 'd']);
+  sprintf('%2$s %3$s a %1$s', 'cracker', 'Polly', 'wants');
+  vsprintf('The first 4 letters of the english alphabet are: %s, %s, %s and %s', ['a', 'b', 'c', 'd']);
 </script>
 ```
 
@@ -52,11 +55,15 @@ vsprintf('The first 4 letters of the english alphabet are: %s, %s, %s and %s', [
 
 ### NPM
 
-    npm install sprintf-js
+```shell
+npm install sprintf-js
+````
 
-### Bower
+### Yarn
 
-    bower install sprintf
+```shell
+yarn add sprintf
+```
 
 ## API
 
@@ -64,24 +71,37 @@ vsprintf('The first 4 letters of the english alphabet are: %s, %s, %s and %s', [
 
 Returns a formatted string:
 
-    string sprintf(string format, mixed arg1?, mixed arg2?, ...)
+```ts
+function sprintf(format: string, arg1?: unknown, arg2?: unknown, ...): string
+```
 
 ### `vsprintf`
 
 Same as `sprintf` except it takes an array of arguments, rather than a variable number of arguments:
 
-    string vsprintf(string format, array arguments?)
+```ts
+function vsprintf(format: string, arguments?: unknown[]): string
+```
 
 ## Format specification
 
-The placeholders in the format string are marked by `%` and are followed by one or more of these elements, in this order:
+The placeholders in the format string are marked by `%` and are followed by one or more of these elements, in this
+order:
 
-* An optional number followed by a `$` sign that selects which argument index to use for the value. If not specified, arguments will be placed in the same order as the placeholders in the input string.
-* An optional `+` sign that forces to precede the result with a plus or minus sign on numeric values. By default, only the `-` sign is used on negative numbers.
-* An optional padding specifier that says what character to use for padding (if specified). Possible values are `0` or any other character preceded by a `'` (single quote). The default is to pad with *spaces*.
-* An optional `-` sign, that causes `sprintf` to left-align the result of this placeholder. The default is to right-align the result.
-* An optional number, that says how many characters the result should have. If the value to be returned is shorter than this number, the result will be padded. When used with the `j` (JSON) type specifier, the padding length specifies the tab size used for indentation.
-* An optional precision modifier, consisting of a `.` (dot) followed by a number, that says how many digits should be displayed for floating point numbers. When used with the `g` type specifier, it specifies the number of significant digits. When used on a string, it causes the result to be truncated.
+* An optional number followed by a `$` sign that selects which argument index to use for the value. If not specified,
+  arguments will be placed in the same order as the placeholders in the input string.
+* An optional `+` sign that forces to precede the result with a plus or minus sign on numeric values. By default, only
+  the `-` sign is used on negative numbers.
+* An optional padding specifier that says what character to use for padding (if specified). Possible values are `0` or
+  any other character preceded by a `'` (single quote). The default is to pad with *spaces*.
+* An optional `-` sign, that causes `sprintf` to left-align the result of this placeholder. The default is to
+  right-align the result.
+* An optional number that says how many characters the result should have. If the value to be returned is shorter than
+  this number, the result will be padded. When used with the `j` (JSON) type specifier, the padding length specifies the
+  tab size used for indentation.
+* An optional precision modifier, consisting of a `.` (dot) followed by a number, that says how many digits should be
+  displayed for floating point numbers. When used with the `g` type specifier, it specifies the number of significant
+  digits. When used on a string, it causes the result to be truncated.
 * A type specifier that can be any of:
     * `%` — yields a literal `%` character
     * `b` — yields an integer as a binary number
@@ -104,41 +124,49 @@ The placeholders in the format string are marked by `%` and are followed by one 
 
 ### Argument swapping
 
-You can also swap the arguments. That is, the order of the placeholders doesn't have to match the order of the arguments. You can do that by simply indicating in the format string which arguments the placeholders refer to:
+You can also swap the arguments. That is, the order of the placeholders doesn't have to match the order of the
+arguments. You can do that by simply indicating in the format string which arguments the placeholders refer to:
 
-    sprintf('%2$s %3$s a %1$s', 'cracker', 'Polly', 'wants')
+```js
+sprintf('%2$s %3$s a %1$s', 'cracker', 'Polly', 'wants')
+```
 
 And, of course, you can repeat the placeholders without having to increase the number of arguments.
 
 ### Named arguments
 
-Format strings may contain replacement fields rather than positional placeholders. Instead of referring to a certain argument, you can now refer to a certain key within an object. Replacement fields are surrounded by rounded parentheses - `(` and `)` - and begin with a keyword that refers to a key:
+Format strings may contain replacement fields rather than positional placeholders. Instead of referring to a certain
+argument, you can now refer to a certain key within an object. Replacement fields are surrounded by rounded
+parentheses - `(` and `)` - and begin with a keyword that refers to a key:
 
-    var user = {
-        name: 'Dolly',
-    }
-    sprintf('Hello %(name)s', user) // Hello Dolly
+```js
+var user = {
+    name: 'Dolly',
+}
+sprintf('Hello %(name)s', user) // Hello Dolly
+```
 
 Keywords in replacement fields can be optionally followed by any number of keywords or indexes:
 
-    var users = [
-        {name: 'Dolly'},
-        {name: 'Molly'},
-        {name: 'Polly'},
-    ]
-    sprintf('Hello %(users[0].name)s, %(users[1].name)s and %(users[2].name)s', {users: users}) // Hello Dolly, Molly and Polly
+```javascript
+var users = [
+    {name: 'Dolly'},
+    {name: 'Molly'},
+    {name: 'Polly'},
+]
+sprintf('Hello %(users[0].name)s, %(users[1].name)s and %(users[2].name)s', {users: users})
+// Hello Dolly, Molly and Polly
+```
 
-Note: mixing positional and named placeholders is not (yet) supported
+Note: It is possible to mix positional and named placeholders!
 
 ### Computed values
 
-You can pass in a function as a dynamic value and it will be invoked (with no arguments) in order to compute the value on the fly.
+You can pass functions as a dynamic value. They will be invoked (with no arguments) to compute the value on the fly.
 
-    sprintf('Current date and time: %s', function() { return new Date().toString() })
-
-### AngularJS
-
-You can use `sprintf` and `vsprintf` (also aliased as `fmt` and `vfmt` respectively) in your AngularJS projects. See `demo/`.
+```js
+sprintf('Current date and time: %s', function() { return new Date().toString() })
+```
 
 ## Support
 
@@ -148,17 +176,16 @@ You can use `sprintf` and `vsprintf` (also aliased as `fmt` and `vfmt` respectiv
 
 ### Browser
 
-`sprintf-js` should work in all modern browsers. As of v1.1.1, you might need polyfills for the following:
-
- - `String.prototype.repeat()` (any IE)
- - `Array.isArray()` (IE < 9)
- - `Object.create()` (IE < 9)
+`sprintf-js` should run without problems in all modern browsers.
 
 YMMV
 
 ## TypeScript
 
-This library has been rewritten in TypeScript, providing type definitions out of the box. The package can be used in both ESM and CommonJS environments, and is also available for direct browser usage via CDN.
+This library has been rewritten in TypeScript, providing type definitions out of the box.
+
+If the format string is passed as a string literal, TypeScript will be able to detect when an argument is of the wrong
+type, and give you a type error.
 
 ### Build Process
 
@@ -174,4 +201,5 @@ The project uses [tsup](https://github.com/egoist/tsup) for building, which gene
 
 ## Notes
 
-<small><sup><a href="#fn-ref-1" name="fn-1">1</a></sup> `sprintf` doesn't use the `typeof` operator. As such, the value `null` is a `null`, an array is an `array` (not an `object`), a date value is a `date` etc.</small>
+<small><sup><a href="#fn-ref-1" name="fn-1">1</a></sup> `sprintf` doesn't use the `typeof` operator. As such, the value
+`null` is a `null`, an array is an `array` (not an `object`), a date value is a `date`, etc.</small>
