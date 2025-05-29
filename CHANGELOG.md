@@ -1,3 +1,14 @@
+## 2.0.0
+
+* Remove support for Angular v1 filters (angular v1 is EOL)
+* Remove bower.json
+* Rewrite in TypeScript with full argument inference from formatting string
+* Replace travis workflow with a GitHub action workflow
+* Remove dist dir from version control
+* Update all tooling (ESLint, vitest, tsup)
+* Use package.json "files" instead of .npmignore
+* Full test coverage
+
 ## 1.1.3
 
 * fix LICENSE name
