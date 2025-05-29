@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { sprintf, vsprintf } from '@/index'
+import { sprintf, vsprintf } from '@/sprintf'
 import {
     simplestImplicit,
     simplestExplicit,

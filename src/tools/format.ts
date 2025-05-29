@@ -1,6 +1,6 @@
-import { sprintf } from '@/index'
-import { ArgList, ParseTree, FormatPlaceholder } from '@/sprintf/types'
-import { regexes, truncate } from '@/sprintf/utils'
+import { sprintf } from '@/sprintf'
+import { ArgList, ParseTree, FormatPlaceholder } from '@/tools/types'
+import { regexes, truncate } from '@/tools/utils'
 
 /**
  * Scan the parseTree, figure out

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import format from '@/sprintf/format'
-import parse from '@/sprintf/parse'
+import format from '@/tools/format'
+import parse from '@/tools/parse'
 
 describe('format', () => {
     it('should format a string with no placeholders', () => {

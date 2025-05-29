@@ -1,5 +1,5 @@
-import { FormatPlaceholder, ParseTree, RawMatch } from '@/sprintf/types'
-import { hasRawGroups, regexes } from '@/sprintf/utils'
+import { FormatPlaceholder, ParseTree, RawMatch } from '@/tools/types'
+import { hasRawGroups, regexes } from '@/tools/utils'
 
 const sprintfCache: Map<string, ParseTree> = new Map()
 

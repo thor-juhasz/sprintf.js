@@ -1,5 +1,5 @@
 import { bench, describe } from 'vitest'
-import { sprintf } from '@/index'
+import { sprintf } from '@/sprintf'
 import {
     TestCase,
     complexExplicit,

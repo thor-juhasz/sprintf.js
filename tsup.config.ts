@@ -14,7 +14,7 @@ const common = {
 
 export default defineConfig([
     {
-        entry: ['src/index.ts'],
+        entry: ['src/sprintf.ts'],
         format: ['cjs', 'esm'],
         ...common,
     },

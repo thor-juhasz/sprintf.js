@@ -1,4 +1,4 @@
-import { sprintf, vsprintf } from '@/index'
+import { sprintf, vsprintf } from '@/sprintf'
 
 declare global {
     interface Window {

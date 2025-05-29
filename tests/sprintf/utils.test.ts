@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { regexes, hasRawGroups, truncate } from '@/sprintf/utils'
+import { regexes, hasRawGroups, truncate } from '@/tools/utils'
 
 describe('utils', () => {
     describe('regexes', () => {

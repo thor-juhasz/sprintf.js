@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import parse, { parseNamedArgs } from '@/sprintf/parse'
-import { RawMatch } from '@/sprintf/types'
+import parse, { parseNamedArgs } from '@/tools/parse'
+import { RawMatch } from '@/tools/types'
 
 describe('parse', () => {
     describe('parseNamedArgs', () => {

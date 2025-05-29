@@ -1,4 +1,4 @@
-import { RawMatch } from '@/sprintf/types'
+import { RawMatch } from '@/tools/types'
 
 const paramNumberRegex = /(?:(?<paramNumber>[1-9]\d*)\$)?/
 const paramNameKeysRegex = /(?:\((?<paramNameKeys>[^)]+)\))?/

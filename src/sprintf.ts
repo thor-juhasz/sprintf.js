@@ -1,6 +1,6 @@
-import fmt from '@/sprintf/format'
-import parse from '@/sprintf/parse'
-import { SprintfArgs } from '@/sprintf/types'
+import fmt from '@/tools/format'
+import parse from '@/tools/parse'
+import { SprintfArgs } from '@/tools/types'
 
 /**
  * Format a string according to the given format string and arguments
