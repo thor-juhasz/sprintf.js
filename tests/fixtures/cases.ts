@@ -1,6 +1,6 @@
-export type BenchCase = [name: string, fmt: string, args: unknown[]]
+export type TestCase = [name: string, fmt: string, args: unknown[]]
 
-export const simplestImplicit: BenchCase[] = [
+export const simplestImplicit: TestCase[] = [
     ['implicit: string %s',      'Hello %s',            ['world']],
     ['implicit: integer %d',     'Count: %d',           [42]],
     ['implicit: float %f',       'Value: %f',           [3.14]],
@@ -14,7 +14,7 @@ export const simplestImplicit: BenchCase[] = [
     ['implicit: value %v',       'Val: %v',             [123]],
 ]
 
-export const simplestExplicit: BenchCase[] = [
+export const simplestExplicit: TestCase[] = [
     ['explicit: string %1$s',    'Hello %1$s',          ['world']],
     ['explicit: integer %1$d',   'Count: %1$d',         [42]],
     ['explicit: float %1$f',     'Value: %1$f',         [3.14]],
@@ -28,7 +28,7 @@ export const simplestExplicit: BenchCase[] = [
     ['explicit: value %1$v',     'Val: %1$v',           [123]],
 ]
 
-export const simplestNamedImplicit: BenchCase[] = [
+export const simplestNamedImplicit: TestCase[] = [
     ['implicit+named: string %(who)s',      'Hello %(who)s',           [{ who: 'Thor' }]],
     ['implicit+named: integer %(num)d',     'Count: %(num)d',          [{ num: 42 }]],
     ['implicit+named: float %(val)f',       'Value: %(val)f',          [{ val: 3.14 }]],
@@ -42,7 +42,7 @@ export const simplestNamedImplicit: BenchCase[] = [
     ['implicit+named: value %(v)v',         'Val: %(v)v',              [{ v: 123 }]],
 ]
 
-export const simplestNamedExplicit: BenchCase[] = [
+export const simplestNamedExplicit: TestCase[] = [
     ['explicit+named: string %1$(who)s',      'Hello %1$(who)s',           [{ who: 'Thor' }]],
     ['explicit+named: integer %1$(num)d',     'Count: %1$(num)d',          [{ num: 42 }]],
     ['explicit+named: float %1$(val)f',       'Value: %1$(val)f',          [{ val: 3.14 }]],
@@ -56,7 +56,7 @@ export const simplestNamedExplicit: BenchCase[] = [
     ['explicit+named: value %1$(v)v',         'Val: %1$(v)v',              [{ v: 123 }]],
 ]
 
-export const complexImplicit: BenchCase[] = [
+export const complexImplicit: TestCase[] = [
     ['implicit: pad+sign',     'Value: %+07.2f',                     [12.3456]],
     ['implicit: left align',   'Left: %-10s!',                       ['hi']],
     ['implicit: mixed types',  '%s %d %f %j',                        ['x', 1, 2.3, { z: 3 }]],
@@ -65,7 +65,7 @@ export const complexImplicit: BenchCase[] = [
     ['implicit: json pretty',  'Obj: %10j',                         [{ a:1, b:2 }]],
 ]
 
-export const complexExplicit: BenchCase[] = [
+export const complexExplicit: TestCase[] = [
     ['explicit: pad+sign',     'Value: %1$+07.2f',                   [12.3456]],
     ['explicit: left align',   'Left: %1$-10s!',                     ['hi']],
     ['explicit: mixed types',  '%1$s %2$d %3$f %4$j',                ['x', 1, 2.3, { z: 3 }]],
@@ -74,19 +74,19 @@ export const complexExplicit: BenchCase[] = [
     ['explicit: json pretty',  'Obj: %1$10j',                       [{ a:1, b:2 }]],
 ]
 
-export const complexNamedImplicit: BenchCase[] = [
+export const complexNamedImplicit: TestCase[] = [
     ['implicit+named: user info',    'User: %(name)s (%(age)d yrs)',       [{ name:'Thor', age:40 }]],
     ['implicit+named: stats',        'Visits: %(v)d, Score: %(s)f',        [{ v:987, s:4.56 }]],
     ['implicit+named: mixed',        '%(x)s %d %j',                      [{ x:'X' }, 5, { y:6 }]],
 ]
 
-export const complexNamedExplicit: BenchCase[] = [
+export const complexNamedExplicit: TestCase[] = [
     ['explicit+named: user info',    'User: %1$(name)s (%1$(age)d yrs)',   [{ name:'Thor', age:40 }]],
     ['explicit+named: stats',        'Visits: %1$(v)d, Score: %1$(s)f',    [{ v:987, s:4.56 }]],
     ['explicit+named: mixed',        '%1$(x)s %2$d %3$j',                 [{ x:'X' }, 5, { y:6 }]],
 ]
 
-export const mixedCases: BenchCase[] = [
+export const mixedCases: TestCase[] = [
     ['implicit simple',   'Hi %s!',                      ['world']],
     ['explicit simple',   'Hi %1$s!',                    ['world']],
     ['complex imp',       'Val: %-8s %+06.2f',           ['ok', 7.89]],

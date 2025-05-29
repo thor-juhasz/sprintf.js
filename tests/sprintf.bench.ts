@@ -1,7 +1,7 @@
 import { bench, describe } from 'vitest'
 import { sprintf } from '@/index'
 import {
-    BenchCase,
+    TestCase,
     complexExplicit,
     complexImplicit,
     complexNamedExplicit,
@@ -13,7 +13,7 @@ import {
     simplestNamedImplicit,
 } from '@/tests/fixtures/cases'
 
-function benchEach<Case extends readonly BenchCase[]>(
+function benchEach<Case extends readonly TestCase[]>(
     cases: Case,
     fn: (fmt: Case[number][1], args: Case[number][2]) => void
 ) {
