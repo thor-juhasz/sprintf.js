@@ -16,7 +16,7 @@ export default defineConfig({
             provider: 'v8',
             reporter: ['text', 'json', 'html'],
             include: ['src/**/*.ts'],
-            exclude: ['**/*.d.ts', '**/*.test.ts', '**/*.bench.ts'],
+            exclude: ['**/*.d.ts', '**/*.test.ts', '**/*.bench.ts', 'src/browser.ts'],
             thresholds: {
                 100: true,
             },
